@@ -9,6 +9,7 @@ public class Main {
         String text = new Scanner(System.in).nextLine();
         System.out.println("Длина текста: " + text.length());*/
 
+
         int counterCorrectFilePath = 0;
         while (true) {
             System.out.println("Введите путь к файлу:");
