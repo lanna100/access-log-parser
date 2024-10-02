@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-
+        Statistics statistics = new Statistics();
         int correctFilePathСounter = 0;
         while (true) {
             System.out.println("Введите путь к файлу:");
@@ -32,6 +32,15 @@ public class Main {
                         }
                         lineCounter++;
                         totalRequests++;
+
+                        try {
+                            LogEntry logEntry = new LogEntry(line);
+                            statistics.addEntry(logEntry);
+                        } catch (IllegalArgumentException ex) {
+                            System.out.println("Ошибка: " + ex.getMessage());
+                            System.out.println("Неправильный формат строки: " + line);
+                            continue;
+                        }
 
                         //разбиваем на фрагменты по " и выделяем UserAgent фрагмент
                         String[] parts = line.split("\"");
@@ -71,6 +80,7 @@ public class Main {
                 System.out.printf("Доля запросов от Googlebot относительно общего числа сделанных запросов: %.2f%%\n", googlebotFraction);
                 System.out.printf("Доля запросов от YandexBot относительно общего числа сделанных запросов: %.2f%%\n", yandexbotFraction);
 
+                System.out.println("Cредний объём трафика сайта за час - " + statistics.getTrafficRate());
             }
             if (isDirectory) {
                 System.out.println("Указан путь к папке, а не к файлу.");
