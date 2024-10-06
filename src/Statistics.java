@@ -8,15 +8,20 @@ public class Statistics {
     private OffsetDateTime minTime;
     private OffsetDateTime maxTime;
     private HashSet<String> existingPages;
+    private HashSet<String> notExistingPages;
     private HashMap<String, Integer> osFrequency;
+    private HashMap<String, Integer> browserFrequency;
     private int totalOSCount;
+    private int totalBrowserCount;
 
     public Statistics() {
         this.totalTraffic = 0;
         this.minTime = OffsetDateTime.MAX;
         this.maxTime = OffsetDateTime.MIN;
         this.existingPages = new HashSet<>();
+        this.notExistingPages = new HashSet<>();
         this.osFrequency = new HashMap<>();
+        this.browserFrequency = new HashMap<>();
     }
 
     public void addEntry(LogEntry logEntry) {
@@ -30,15 +35,25 @@ public class Statistics {
         }
         if (logEntry.getResponseCode() == 200) {
             existingPages.add(logEntry.getRequestPath());
+        } else if (logEntry.getResponseCode() == 404) {
+            notExistingPages.add(logEntry.getRequestPath());
         }
 
         String osName = logEntry.getUserAgent().getOsType();
         osFrequency.put(osName, osFrequency.getOrDefault(osName, 0) + 1);
         totalOSCount++;
+
+        String browserName = logEntry.getUserAgent().getBrowser();
+        browserFrequency.put(browserName, browserFrequency.getOrDefault(browserName, 0) + 1);
+        totalBrowserCount++;
     }
 
     public HashSet<String> getExistingPages() {
         return existingPages;
+    }
+
+    public HashSet<String> getNotExistingPages() {
+        return notExistingPages;
     }
 
     public Map<String, Double> getOperatingSystemStatistics() {
@@ -52,6 +67,19 @@ public class Statistics {
         }
 
         return osDistribution;
+    }
+
+    public Map<String, Double> getBrowserStatistics() {
+        HashMap<String, Double> browserDistribution = new HashMap<>();
+
+        for (Map.Entry<String, Integer> entry : browserFrequency.entrySet()) {
+            String browser = entry.getKey();
+            int count = entry.getValue();
+            double proportion = (double) count / totalBrowserCount;
+            browserDistribution.put(browser, proportion);
+        }
+
+        return browserDistribution;
     }
 
     public double getTrafficRate() {

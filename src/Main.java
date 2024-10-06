@@ -82,8 +82,10 @@ public class Main {
 
                 //System.out.println("Cредний объём трафика сайта за час - " + statistics.getTrafficRate());
                 //System.out.println("Адреса существующих страниц (с кодом ответа 200)  - " + statistics.getExistingPages());
+                //System.out.println("Адреса несуществующих страниц (с кодом ответа 404)  - " + statistics.getNotExistingPages());
 
                 System.out.println("Cтатистика ОС - " + statistics.getOperatingSystemStatistics());
+                System.out.println("Cтатистика браузеров - " + statistics.getBrowserStatistics());
             }
             if (isDirectory) {
                 System.out.println("Указан путь к папке, а не к файлу.");
