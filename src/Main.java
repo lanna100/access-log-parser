@@ -80,7 +80,10 @@ public class Main {
                 System.out.printf("Доля запросов от Googlebot относительно общего числа сделанных запросов: %.2f%%\n", googlebotFraction);
                 System.out.printf("Доля запросов от YandexBot относительно общего числа сделанных запросов: %.2f%%\n", yandexbotFraction);
 
-                System.out.println("Cредний объём трафика сайта за час - " + statistics.getTrafficRate());
+                //System.out.println("Cредний объём трафика сайта за час - " + statistics.getTrafficRate());
+                //System.out.println("Адреса существующих страниц (с кодом ответа 200)  - " + statistics.getExistingPages());
+
+                System.out.println("Cтатистика ОС - " + statistics.getOperatingSystemStatistics());
             }
             if (isDirectory) {
                 System.out.println("Указан путь к папке, а не к файлу.");
