@@ -1,11 +1,15 @@
 public class UserAgent {
+    private String userAgentString;
     private final String osType;
     private final String browser;
 
     public UserAgent(String userAgentString) {
         this.osType = determineOSType(userAgentString);
         this.browser = determineBrowser(userAgentString);
+        this.userAgentString = userAgentString;
+
     }
+
 
     public String getOsType() {
         return osType;
@@ -39,5 +43,9 @@ public class UserAgent {
             return "Safari";
         }
         return "Other";
+    }
+
+    public String getUserAgentString() {
+        return userAgentString;
     }
 }

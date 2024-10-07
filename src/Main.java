@@ -86,6 +86,11 @@ public class Main {
 
                 System.out.println("Cтатистика ОС - " + statistics.getOperatingSystemStatistics());
                 System.out.println("Cтатистика браузеров - " + statistics.getBrowserStatistics());
+
+                System.out.println("Среднее посещение сайта за час - " + statistics.getBrowserStatistics());
+                System.out.println("Среднее количество ошибочных запросов в час - " + statistics.getAverageErrorResponsesPerHour());
+                System.out.println("Средняя посещаемость одним пользователем - " + statistics.getAverageVisitsPerUser());
+
             }
             if (isDirectory) {
                 System.out.println("Указан путь к папке, а не к файлу.");
